@@ -1,0 +1,23 @@
+Custom Classes In Python:
+Code:
+class Rectangle:
+    def __init__(self, length, width):
+        self.length = length
+        self.width = width
+
+    def __iter__(self):
+        yield {'length': self.length}
+        yield {'width': self.width}
+
+Explanation:
+1. The __init__ method takes length and width as arguments and initializes the instance variables.
+2.The __iter__ method defines how to iterate over an instance of the Rectangle class. It yields two dictionaries, one for length and one for width.
+
+Example:
+rect = Rectangle(25, 120)
+for item in rect:
+    print(item)
+
+Output:
+{'length': 25}
+{'width': 120}
