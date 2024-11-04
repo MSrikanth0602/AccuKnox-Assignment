@@ -1,0 +1,16 @@
+Question3:
+Signals are executed after the transaction that triggered them has already committed. This means that any database operations performed within a signal handler will occur in a separate transaction.
+Code Snippet:
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.db import transaction
+
+@receiver(post_save, sender=YourModel)
+def my_signal_handler(sender, instance, **kwargs):
+    with transaction.atomic():
+        # Database operations here
+        # ...
+
+Explanation:
+1. The with transaction.atomic() block ensures that the database operations within the signal handler are executed in a separate transaction.
+2.This isolation prevents issues like data consistency problems that might arise if the signal handler's operations were part of the original transaction.
