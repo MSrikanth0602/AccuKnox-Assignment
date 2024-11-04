@@ -1,0 +1,19 @@
+Question1:
+This means that when a signal is emitted, the execution of the current process pauses until all connected receivers have finished processing.
+Code Snippet:
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+def slow_receiver(sender, instance, **kwargs):
+    # Simulate a long-running task
+    import time
+    time.sleep(5)
+    print("Slow receiver finished")
+
+post_save.connect(slow_receiver, sender=YourModel)
+
+
+Explanation:
+1.We connect the slow_receiver function to the post_save signal for a specific model (YourModel).
+2.When an instance of YourModel is saved, the post_save signal is emitted.
+3. The slow_receiver function is executed synchronously. This means that the current process will wait for 5 seconds before continuing.
