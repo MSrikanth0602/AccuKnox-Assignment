@@ -1,0 +1,15 @@
+Question2:
+This is because signals are essentially callbacks that are executed within the same context as the code that triggered the signal.
+Code Snippet:
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+def my_signal_handler(sender, instance, **kwargs):
+    # Access variables from the caller's context
+    print(some_variable_defined_in_the_caller)
+
+post_save.connect(my_signal_handler, sender=YourModel)
+
+Explanation:
+1.The my_signal_handler function has access to variables and objects defined in the context of the code that triggered the post_save signal.
+2.Both the caller and the signal handler execute within the same thread.
